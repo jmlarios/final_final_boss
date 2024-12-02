@@ -37,7 +37,7 @@ def process_with_anthropic_api(text):
         
             1. Every menu item must:
                 - Include a `price` (greater than 0).
-                - Have a valid `description` (not null; can be a placeholder like "No description available").
+                - A brief description of the dish (5 words max), ensuring it accurately reflects the dish.
                 - Contain a valid `dietary_id`, which refers to an entry in the `dietary_restrictions` table.
             2. Ensure that every menu item references a valid `dietary_id`. 
             
@@ -170,10 +170,11 @@ def insert_into_database(structured_data):
             cursor.execute("INSERT INTO DietaryRestriction (restriction_id, label) VALUES (%s, %s)", restriction)
 
         # Insert ProcessingLog data
+
         for menu in structured_data["Menu"]:
             menu_id = menu[0]  # Assuming menu_id is the first element
             current_time = datetime.now()
-            log_entry = (None, 1, "successful", None, current_time)
+            log_entry = (None, menu_id, "successful", None, current_time)
             cursor.execute(
                 "INSERT INTO ProcessingLog (log_id, menu_id, status, error_message, timestamp) VALUES (%s, %s, %s, %s, %s)",
                 log_entry
@@ -193,7 +194,7 @@ def insert_into_database(structured_data):
 
 # Main function to process the PDF and integrate with the database
 def main():
-    pdf_file_path = r"C:\Users\User\Downloads\restaurante_2.pdf"
+    pdf_file_path = r"<INSERT PATH TO FILE>"
     image_credentials_path = r"C:\Users\User\Downloads\database-443218-8d1a699e81ad.json"
 
     # Extract text from the PDF
