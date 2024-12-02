@@ -1,12 +1,9 @@
 import mysql.connector  # MySQL connector
 from datetime import datetime
-import openai  # Anthropics Claude API
 import json
 from PDFreader import extract_text_from_pdf, extract_text_from_image
 import anthropic
-import os
 import unicodedata
-import pytz
 
 
 def process_with_anthropic_api(text):
