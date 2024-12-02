@@ -1,4 +1,4 @@
-import mysql.connector  # MySQL connector
+import mysql.connector 
 from datetime import datetime
 import json
 from PDFreader import extract_text_from_pdf, extract_text_from_image
@@ -36,7 +36,12 @@ def process_with_anthropic_api(text):
                 - Include a `price` (greater than 0).
                 - A brief description of the dish (5 words max), ensuring it accurately reflects the dish.
                 - Contain a valid `dietary_id`, which refers to an entry in the `dietary_restrictions` table.
-            2. Ensure that every menu item references a valid `dietary_id`. 
+                - DESCRIPTION HANDLING REQUIREMENTS:
+                    - If NO description is available for a menu item:
+                        * Set description to NULL
+                        * Do NOT use placeholder text like "No description available"
+                    - Ensure description field can be truly empty/null when no meaningful description exists
+           . 
             
         -ACCENT & CHARACTER HANDLING:
             - Convert ALL Spanish accented characters to their non-accented equivalents
@@ -191,7 +196,7 @@ def insert_into_database(structured_data):
 
 # Main function to process the PDF and integrate with the database
 def main():
-    pdf_file_path = r"<INSERT PATH TO FILE>"
+    pdf_file_path = r"C:\Users\User\Downloads\PETRUS-PRESTIGE-211024.pdf"
     image_credentials_path = r"C:\Users\User\Downloads\database-443218-8d1a699e81ad.json"
 
     # Extract text from the PDF
