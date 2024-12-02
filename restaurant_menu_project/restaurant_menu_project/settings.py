@@ -97,7 +97,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'restaurant_menus',
         'USER': 'root',
-        'PASSWORD': 'ocheia06',
+        'PASSWORD': '',
         'HOST': 'localhost',  
         'PORT': '3306',      
     }
@@ -170,3 +170,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
